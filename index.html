@@ -1,0 +1,74 @@
+from pathlib import Path
+
+html = """<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amona Doorstep Chakki</title>
+<style>
+:root{--green:#176b45;--light:#f4f8f5;--ink:#1d2a23}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:var(--light);color:var(--ink);line-height:1.6}
+header{background:var(--green);color:white;padding:28px 18px;text-align:center}
+header h1{margin:0 0 6px;font-size:28px}header p{margin:0}
+main{max-width:720px;margin:22px auto;padding:0 14px}
+.card{background:white;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 3px 14px #0000000d}
+h2{color:var(--green);margin-top:0}.note{background:#fff8df;padding:12px;border-radius:8px}
+label{display:block;font-weight:600;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5ce;border-radius:8px;font:inherit;background:white}
+button,.link{display:inline-block;background:var(--green);color:white;border:0;border-radius:9px;padding:13px 18px;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;width:100%;margin-top:16px}
+footer{text-align:center;padding:20px;color:#53645a;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+<h1>Amona Doorstep Chakki</h1>
+<p>ताजे दळण • विश्वासार्ह सेवा • अमोना व परिसर</p>
+</header>
+<main>
+<section class="card">
+<h2>आमची सेवा</h2>
+<p>गहू, ज्वारी, बाजरी, मका, तांदूळ व इतर धान्य दळण्यासाठी चौकशी किंवा ऑर्डर नोंदवा.</p>
+<p class="note">सेवा उपलब्धता, दळणाची पद्धत आणि वेळ आधी WhatsApp वर निश्चित करा.</p>
+<a class="link" href="https://wa.me/919529317323">WhatsApp वर संपर्क करा</a>
+</section>
+<section class="card">
+<h2>दळणासाठी ऑर्डर नोंदवा</h2>
+<form id="orderForm">
+<label for="name">तुमचे नाव</label><input id="name" required>
+<label for="phone">मोबाईल नंबर</label><input id="phone" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required>
+<label for="village">गाव</label><input id="village" value="अमोना" required>
+<label for="address">पूर्ण पत्ता</label><textarea id="address" rows="2" required></textarea>
+<label for="grain">धान्याचा प्रकार</label>
+<select id="grain" required><option value="">निवडा</option><option>गहू</option><option>ज्वारी</option><option>बाजरी</option><option>मका</option><option>तांदूळ</option><option>हरभरा</option><option>इतर</option></select>
+<label for="weight">अंदाजे वजन (किलो)</label><input id="weight" type="number" min="1" required>
+<label for="service">सेवेचा प्रकार</label><select id="service"><option>धान्य घेऊन जाणे व दळण परत देणे</option><option>इतर / आधी चर्चा करायची आहे</option></select>
+<label for="date">पसंतीची तारीख</label><input id="date" type="date">
+<label for="time">पसंतीची वेळ</label><input id="time" type="time">
+<label for="notes">अतिरिक्त माहिती</label><textarea id="notes" rows="2"></textarea>
+<button type="submit">WhatsApp वर ऑर्डर पाठवा</button>
+</form>
+</section>
+<section class="card">
+<h2>संपर्क</h2>
+<p>मोबाईल / WhatsApp: <strong>9529317323</strong></p>
+<p>सेवा क्षेत्र: अमोना आणि जवळील गावे (उपलब्धतेनुसार)</p>
+</section>
+</main>
+<footer>© Amona Doorstep Chakki</footer>
+<script>
+document.getElementById('orderForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const v=id=>document.getElementById(id).value.trim();
+ if(!/^[0-9]{10}$/.test(v('phone'))){alert('कृपया 10 अंकी मोबाईल नंबर टाका.');return;}
+ const msg=`Amona Doorstep Chakki ऑर्डर%0Aनाव: ${v('name')}%0Aमोबाईल: ${v('phone')}%0Aगाव: ${v('village')}%0Aपत्ता: ${v('address')}%0Aधान्य: ${v('grain')}%0Aवजन: ${v('weight')} किलो%0Aसेवा: ${v('service')}%0Aतारीख: ${v('date')}%0Aवेळ: ${v('time')}%0Aमाहिती: ${v('notes')}`;
+ window.open('https://wa.me/919529317323?text='+encodeURIComponent(decodeURIComponent(msg)),'_blank');
+});
+</script>
+</body>
+</html>"""
+
+path = Path("/mnt/data/amona_doorstep_chakki_website.html")
+path.write_text(html, encoding="utf-8")
+print(f"फाइल तयार झाली: {path.name}")
+
